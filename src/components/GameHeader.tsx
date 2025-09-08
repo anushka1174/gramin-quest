@@ -1,8 +1,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
-import { Heart, Zap, Trophy, Settings } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Heart, Zap, Trophy } from "lucide-react";
+import { LanguageThemeToggle } from "@/components/LanguageThemeToggle";
 import owlMascot from "@/assets/owl-mascot.png";
+import { useTranslation } from "react-i18next";
 
 interface GameHeaderProps {
   playerName: string;
@@ -23,6 +24,7 @@ export const GameHeader = ({
   energy,
   streak,
 }: GameHeaderProps) => {
+  const { t } = useTranslation();
   return (
     <header className="bg-card border-b border-border shadow-card p-4">
       <div className="container mx-auto flex items-center justify-between">
@@ -37,9 +39,9 @@ export const GameHeader = ({
           <div className="space-y-1">
             <h2 className="font-bold text-lg">{playerName}</h2>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">Level {level}</span>
+              <span className="text-sm text-muted-foreground">{t('game.level')} {level}</span>
               <Progress value={(xp / maxXp) * 100} className="w-20 h-2" />
-              <span className="text-xs text-muted-foreground">{xp}/{maxXp} XP</span>
+              <span className="text-xs text-muted-foreground">{xp}/{maxXp} {t('game.xp')}</span>
             </div>
           </div>
         </div>
@@ -57,12 +59,10 @@ export const GameHeader = ({
           
           <div className="flex items-center gap-2">
             <Trophy className="w-5 h-5 text-success" />
-            <span className="font-bold text-success">{streak} day streak</span>
+            <span className="font-bold text-success">{streak} {t('game.streak')}</span>
           </div>
 
-          <Button variant="outline" size="icon">
-            <Settings className="w-4 h-4" />
-          </Button>
+          <LanguageThemeToggle />
         </div>
       </div>
     </header>

@@ -40,6 +40,7 @@ const chapterData = {
         duration: "10 min",
         xp: 40,
         completed: false,
+        quizId: "physics-forces",
       },
       {
         type: "simulation",
@@ -93,8 +94,10 @@ export default function ChapterPage() {
     const activity = chapter.activities[activityIndex];
     if (activity.type === "simulation") {
       navigate(`/subject/${subjectId}/chapter/${chapterId}/simulation/${activityIndex}`);
+    } else if (activity.type === "quiz" && activity.quizId) {
+      navigate(`/quiz/${activity.quizId}`);
     } else {
-      // Handle other activity types
+      // Handle other activity types (lessons, etc.)
       console.log(`Opening ${activity.type}: ${activity.title}`);
     }
   };

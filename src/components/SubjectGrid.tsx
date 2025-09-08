@@ -1,5 +1,6 @@
 import { SubjectCard } from "@/components/ui/subject-card";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   Atom,
   Beaker,
@@ -88,6 +89,7 @@ const subjects = [
 
 export const SubjectGrid = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubjectClick = (subjectId: string) => {
     navigate(`/subject/${subjectId}`);
@@ -97,10 +99,10 @@ export const SubjectGrid = () => {
     <div className="container mx-auto p-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-center mb-2">
-          Choose Your Learning Adventure! 🚀
+          {t('home.title')}
         </h1>
         <p className="text-muted-foreground text-center">
-          Master subjects through fun games and interactive simulations
+          {t('home.subtitle')}
         </p>
       </div>
 
