@@ -99,7 +99,7 @@ export const QuizQuestion = ({
       case "number_input":
         return (
           <div className="space-y-6">
-            <p className="text-lg font-medium">{t('question.typeAnswer')}</p>
+            <p className="text-lg font-medium">{question.question}</p>
             <div className="text-center">
               <div className="text-4xl font-bold mb-6 text-primary">
                 {question.question}
@@ -139,7 +139,7 @@ export const QuizQuestion = ({
       case "slider":
         return (
           <div className="space-y-6">
-            <p className="text-lg font-medium">{t('question.getAsClose')}</p>
+            <p className="text-lg font-medium">{question.question}</p>
             <div className="text-center">
               <div className="text-4xl font-bold mb-8 text-primary">
                 {question.question}
@@ -166,7 +166,7 @@ export const QuizQuestion = ({
       case "matching":
         return (
           <div className="space-y-6">
-            <p className="text-lg font-medium">{t('question.matchPairs')}</p>
+            <p className="text-lg font-medium">{question.question}</p>
             <div className="grid grid-cols-2 gap-4">
               {question.pairs?.left.map((leftItem, index) => (
                 <div key={index} className="flex gap-2">
@@ -231,7 +231,7 @@ export const QuizQuestion = ({
           className="h-3 bg-muted" 
         />
         <div className="text-center mt-2 text-sm text-muted-foreground">
-          {t('quiz.question')} {questionNumber} {t('quiz.of')} {totalQuestions}
+          Question {questionNumber} of {totalQuestions}
         </div>
       </div>
 
@@ -249,7 +249,7 @@ export const QuizQuestion = ({
                   <XCircle className="w-5 h-5 text-destructive" />
                 )}
                 <span className="font-semibold">
-                  {isCorrect ? t('quiz.correct') : t('quiz.incorrect')}
+                  {isCorrect ? 'Correct!' : 'Incorrect'}
                 </span>
               </div>
               {question.explanation && (
@@ -265,14 +265,14 @@ export const QuizQuestion = ({
                 disabled={!selectedAnswer && question.type !== "slider" && Object.keys(matching).length === 0}
                 className="w-full h-12 text-lg bg-success hover:bg-success/90"
               >
-                {t('common.check')}
+                Check
               </Button>
             ) : (
               <Button 
                 onClick={() => setShowResult(false)}
                 className="w-full h-12 text-lg bg-success hover:bg-success/90"
               >
-                {t('common.continue')}
+                Continue
               </Button>
             )}
           </div>
