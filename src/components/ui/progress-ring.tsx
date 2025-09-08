@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 
 interface ProgressRingProps {
-  progress: number;
+  progress?: number;
+  value?: number;
   size?: number;
   strokeWidth?: number;
   className?: string;
@@ -9,16 +10,18 @@ interface ProgressRingProps {
 }
 
 export const ProgressRing = ({
-  progress,
+  progress = 0,
+  value = 0,
   size = 120,
   strokeWidth = 8,
   className,
   children,
 }: ProgressRingProps) => {
+  const actualProgress = value || progress;
   const normalizedRadius = (size - strokeWidth) / 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const strokeDasharray = `${circumference} ${circumference}`;
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
+  const strokeDashoffset = circumference - (actualProgress / 100) * circumference;
 
   return (
     <div className={cn("relative inline-flex items-center justify-center", className)}>

@@ -9,6 +9,14 @@ import SubjectPage from "./pages/SubjectPage";
 import ChapterPage from "./pages/ChapterPage";
 import SimulationPage from "./pages/SimulationPage";
 import QuizPage from "./pages/QuizPage";
+import ProfilePage from "./pages/ProfilePage";
+import AchievementsPage from "./pages/AchievementsPage";
+import LeaderboardPage from "./pages/LeaderboardPage";
+import SettingsPage from "./pages/SettingsPage";
+import LibraryPage from "./pages/LibraryPage";
+import ProgressPage from "./pages/ProgressPage";
+import HelpPage from "./pages/HelpPage";
+import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 import "./lib/i18n";
 
@@ -27,6 +35,14 @@ const App = () => (
             <Route path="/subject/:subjectId/chapter/:chapterId" element={<ChapterPage />} />
             <Route path="/subject/:subjectId/chapter/:chapterId/simulation/:simulationId" element={<SimulationPage />} />
             <Route path="/quiz/:quizId" element={<QuizPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/achievements" element={<AchievementsPage />} />
+            <Route path="/leaderboard" element={<LeaderboardPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/library" element={<LibraryPage />} />
+            <Route path="/progress" element={<ProgressPage />} />
+            <Route path="/help" element={<HelpPage />} />
+            <Route path="/about" element={<AboutPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

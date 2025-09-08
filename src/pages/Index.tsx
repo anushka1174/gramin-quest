@@ -2,11 +2,13 @@ import { GameHeader } from "@/components/GameHeader";
 import { SubjectGrid } from "@/components/SubjectGrid";
 import { AchievementPanel } from "@/components/AchievementPanel";
 import { LeaderboardPanel } from "@/components/LeaderboardPanel";
+import { Navigation } from "@/components/Navigation";
 import catStudying from "@/assets/cat-studying.png";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Navigation />
       <GameHeader
         playerName="Priya"
         level={8}
