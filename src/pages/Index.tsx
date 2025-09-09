@@ -3,14 +3,17 @@ import { SubjectGrid } from "@/components/SubjectGrid";
 import { AchievementPanel } from "@/components/AchievementPanel";
 import { LeaderboardPanel } from "@/components/LeaderboardPanel";
 import { Navigation } from "@/components/Navigation";
+import { useAuth } from "@/hooks/useAuth";
 import catStudying from "@/assets/cat-studying.png";
 
 const Index = () => {
+  const { profile } = useAuth();
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       <GameHeader
-        playerName="Priya"
+        playerName={profile?.full_name || "Student"}
         level={8}
         xp={1250}
         maxXp={1500}
