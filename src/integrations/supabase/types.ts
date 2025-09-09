@@ -14,16 +14,274 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      class_enrollments: {
+        Row: {
+          class_id: string
+          enrolled_at: string | null
+          id: string
+          is_active: boolean | null
+          student_id: string
+        }
+        Insert: {
+          class_id: string
+          enrolled_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          student_id: string
+        }
+        Update: {
+          class_id?: string
+          enrolled_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "class_enrollments_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "class_enrollments_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      classes: {
+        Row: {
+          academic_year: string | null
+          created_at: string | null
+          description: string | null
+          grade_level: Database["public"]["Enums"]["grade_level"]
+          id: string
+          is_active: boolean | null
+          max_students: number | null
+          name: string
+          organization_id: string
+          subject: string | null
+          teacher_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          academic_year?: string | null
+          created_at?: string | null
+          description?: string | null
+          grade_level: Database["public"]["Enums"]["grade_level"]
+          id?: string
+          is_active?: boolean | null
+          max_students?: number | null
+          name: string
+          organization_id: string
+          subject?: string | null
+          teacher_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          academic_year?: string | null
+          created_at?: string | null
+          description?: string | null
+          grade_level?: Database["public"]["Enums"]["grade_level"]
+          id?: string
+          is_active?: boolean | null
+          max_students?: number | null
+          name?: string
+          organization_id?: string
+          subject?: string | null
+          teacher_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "classes_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "classes_teacher_id_fkey"
+            columns: ["teacher_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organizations: {
+        Row: {
+          address: string | null
+          contact_email: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          logo_url: string | null
+          name: string
+          phone: string | null
+          type: Database["public"]["Enums"]["organization_type"]
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          address?: string | null
+          contact_email?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          logo_url?: string | null
+          name: string
+          phone?: string | null
+          type?: Database["public"]["Enums"]["organization_type"]
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          address?: string | null
+          contact_email?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          logo_url?: string | null
+          name?: string
+          phone?: string | null
+          type?: Database["public"]["Enums"]["organization_type"]
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address: string | null
+          avatar_url: string | null
+          created_at: string | null
+          date_of_birth: string | null
+          email: string
+          full_name: string
+          grade_level: Database["public"]["Enums"]["grade_level"] | null
+          id: string
+          is_active: boolean | null
+          organization_id: string | null
+          phone: string | null
+          role: Database["public"]["Enums"]["user_role"]
+          updated_at: string | null
+        }
+        Insert: {
+          address?: string | null
+          avatar_url?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          email: string
+          full_name: string
+          grade_level?: Database["public"]["Enums"]["grade_level"] | null
+          id: string
+          is_active?: boolean | null
+          organization_id?: string | null
+          phone?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string | null
+        }
+        Update: {
+          address?: string | null
+          avatar_url?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          email?: string
+          full_name?: string
+          grade_level?: Database["public"]["Enums"]["grade_level"] | null
+          id?: string
+          is_active?: boolean | null
+          organization_id?: string | null
+          phone?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subjects: {
+        Row: {
+          bg_gradient: string | null
+          color: string | null
+          created_at: string | null
+          description: string | null
+          grade_levels: string[] | null
+          icon: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          bg_gradient?: string | null
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          grade_levels?: string[] | null
+          icon?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          bg_gradient?: string | null
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          grade_levels?: string[] | null
+          icon?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_organization: {
+        Args: { _user_id: string }
+        Returns: string
+      }
+      get_user_role: {
+        Args: { _user_id: string }
+        Returns: Database["public"]["Enums"]["user_role"]
+      }
     }
     Enums: {
-      [_ in never]: never
+      assignment_status: "pending" | "in_progress" | "completed" | "overdue"
+      content_difficulty: "beginner" | "intermediate" | "advanced"
+      grade_level: "6" | "7" | "8" | "9" | "10" | "11" | "12"
+      organization_type: "school" | "college" | "university" | "institute"
+      question_type:
+        | "multiple_choice"
+        | "number_input"
+        | "slider"
+        | "matching"
+        | "true_false"
+        | "fill_blank"
+        | "drag_drop"
+        | "essay"
+      user_role: "student" | "teacher" | "admin" | "super_admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +408,22 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      assignment_status: ["pending", "in_progress", "completed", "overdue"],
+      content_difficulty: ["beginner", "intermediate", "advanced"],
+      grade_level: ["6", "7", "8", "9", "10", "11", "12"],
+      organization_type: ["school", "college", "university", "institute"],
+      question_type: [
+        "multiple_choice",
+        "number_input",
+        "slider",
+        "matching",
+        "true_false",
+        "fill_blank",
+        "drag_drop",
+        "essay",
+      ],
+      user_role: ["student", "teacher", "admin", "super_admin"],
+    },
   },
 } as const
