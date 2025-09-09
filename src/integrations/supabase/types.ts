@@ -14,6 +14,95 @@ export type Database = {
   }
   public: {
     Tables: {
+      achievements: {
+        Row: {
+          badge_type: string | null
+          created_at: string | null
+          criteria: Json | null
+          description: string
+          icon: string
+          id: string
+          is_active: boolean | null
+          name: string
+          xp_reward: number | null
+        }
+        Insert: {
+          badge_type?: string | null
+          created_at?: string | null
+          criteria?: Json | null
+          description: string
+          icon: string
+          id?: string
+          is_active?: boolean | null
+          name: string
+          xp_reward?: number | null
+        }
+        Update: {
+          badge_type?: string | null
+          created_at?: string | null
+          criteria?: Json | null
+          description?: string
+          icon?: string
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          xp_reward?: number | null
+        }
+        Relationships: []
+      }
+      chapters: {
+        Row: {
+          chapter_number: number
+          created_at: string | null
+          description: string | null
+          difficulty: Database["public"]["Enums"]["content_difficulty"] | null
+          estimated_hours: number | null
+          id: string
+          is_active: boolean | null
+          learning_objectives: string[] | null
+          prerequisites: string[] | null
+          subject_id: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          chapter_number: number
+          created_at?: string | null
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["content_difficulty"] | null
+          estimated_hours?: number | null
+          id?: string
+          is_active?: boolean | null
+          learning_objectives?: string[] | null
+          prerequisites?: string[] | null
+          subject_id: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          chapter_number?: number
+          created_at?: string | null
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["content_difficulty"] | null
+          estimated_hours?: number | null
+          id?: string
+          is_active?: boolean | null
+          learning_objectives?: string[] | null
+          prerequisites?: string[] | null
+          subject_id?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chapters_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       class_enrollments: {
         Row: {
           class_id: string
@@ -109,6 +198,59 @@ export type Database = {
             columns: ["teacher_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lessons: {
+        Row: {
+          chapter_id: string
+          content: Json | null
+          created_at: string | null
+          description: string | null
+          difficulty: Database["public"]["Enums"]["content_difficulty"] | null
+          duration_minutes: number | null
+          id: string
+          is_active: boolean | null
+          lesson_number: number
+          title: string
+          updated_at: string | null
+          xp_reward: number | null
+        }
+        Insert: {
+          chapter_id: string
+          content?: Json | null
+          created_at?: string | null
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["content_difficulty"] | null
+          duration_minutes?: number | null
+          id?: string
+          is_active?: boolean | null
+          lesson_number: number
+          title: string
+          updated_at?: string | null
+          xp_reward?: number | null
+        }
+        Update: {
+          chapter_id?: string
+          content?: Json | null
+          created_at?: string | null
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["content_difficulty"] | null
+          duration_minutes?: number | null
+          id?: string
+          is_active?: boolean | null
+          lesson_number?: number
+          title?: string
+          updated_at?: string | null
+          xp_reward?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lessons_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
             referencedColumns: ["id"]
           },
         ]
@@ -210,6 +352,419 @@ export type Database = {
             columns: ["organization_id"]
             isOneToOne: false
             referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quiz_attempts: {
+        Row: {
+          answers: Json | null
+          attempt_number: number
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          is_completed: boolean | null
+          max_score: number
+          percentage: number | null
+          quiz_id: string
+          score: number | null
+          started_at: string | null
+          student_id: string
+          time_taken_minutes: number | null
+        }
+        Insert: {
+          answers?: Json | null
+          attempt_number?: number
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          is_completed?: boolean | null
+          max_score: number
+          percentage?: number | null
+          quiz_id: string
+          score?: number | null
+          started_at?: string | null
+          student_id: string
+          time_taken_minutes?: number | null
+        }
+        Update: {
+          answers?: Json | null
+          attempt_number?: number
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          is_completed?: boolean | null
+          max_score?: number
+          percentage?: number | null
+          quiz_id?: string
+          score?: number | null
+          started_at?: string | null
+          student_id?: string
+          time_taken_minutes?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_attempts_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quiz_attempts_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quiz_questions: {
+        Row: {
+          correct_answer: string
+          created_at: string | null
+          explanation: string | null
+          id: string
+          options: Json | null
+          points: number | null
+          question_number: number
+          question_text: string
+          question_type: Database["public"]["Enums"]["question_type"]
+          quiz_id: string
+          time_limit_seconds: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          correct_answer: string
+          created_at?: string | null
+          explanation?: string | null
+          id?: string
+          options?: Json | null
+          points?: number | null
+          question_number: number
+          question_text: string
+          question_type: Database["public"]["Enums"]["question_type"]
+          quiz_id: string
+          time_limit_seconds?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          correct_answer?: string
+          created_at?: string | null
+          explanation?: string | null
+          id?: string
+          options?: Json | null
+          points?: number | null
+          question_number?: number
+          question_text?: string
+          question_type?: Database["public"]["Enums"]["question_type"]
+          quiz_id?: string
+          time_limit_seconds?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_questions_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quizzes: {
+        Row: {
+          chapter_id: string | null
+          created_at: string | null
+          description: string | null
+          difficulty: Database["public"]["Enums"]["content_difficulty"] | null
+          id: string
+          instructions: string | null
+          is_active: boolean | null
+          max_attempts: number | null
+          passing_score: number | null
+          time_limit_minutes: number | null
+          title: string
+          updated_at: string | null
+          xp_reward: number | null
+        }
+        Insert: {
+          chapter_id?: string | null
+          created_at?: string | null
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["content_difficulty"] | null
+          id?: string
+          instructions?: string | null
+          is_active?: boolean | null
+          max_attempts?: number | null
+          passing_score?: number | null
+          time_limit_minutes?: number | null
+          title: string
+          updated_at?: string | null
+          xp_reward?: number | null
+        }
+        Update: {
+          chapter_id?: string | null
+          created_at?: string | null
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["content_difficulty"] | null
+          id?: string
+          instructions?: string | null
+          is_active?: boolean | null
+          max_attempts?: number | null
+          passing_score?: number | null
+          time_limit_minutes?: number | null
+          title?: string
+          updated_at?: string | null
+          xp_reward?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quizzes_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      simulations: {
+        Row: {
+          chapter_id: string
+          config: Json | null
+          created_at: string | null
+          description: string | null
+          difficulty: Database["public"]["Enums"]["content_difficulty"] | null
+          id: string
+          is_active: boolean | null
+          simulation_type: string | null
+          title: string
+          updated_at: string | null
+          xp_reward: number | null
+        }
+        Insert: {
+          chapter_id: string
+          config?: Json | null
+          created_at?: string | null
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["content_difficulty"] | null
+          id?: string
+          is_active?: boolean | null
+          simulation_type?: string | null
+          title: string
+          updated_at?: string | null
+          xp_reward?: number | null
+        }
+        Update: {
+          chapter_id?: string
+          config?: Json | null
+          created_at?: string | null
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["content_difficulty"] | null
+          id?: string
+          is_active?: boolean | null
+          simulation_type?: string | null
+          title?: string
+          updated_at?: string | null
+          xp_reward?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "simulations_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_achievements: {
+        Row: {
+          achievement_id: string
+          earned_at: string | null
+          id: string
+          student_id: string
+        }
+        Insert: {
+          achievement_id: string
+          earned_at?: string | null
+          id?: string
+          student_id: string
+        }
+        Update: {
+          achievement_id?: string
+          earned_at?: string | null
+          id?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_achievements_achievement_id_fkey"
+            columns: ["achievement_id"]
+            isOneToOne: false
+            referencedRelation: "achievements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_achievements_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_progress: {
+        Row: {
+          chapter_id: string
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          is_completed: boolean | null
+          last_accessed_at: string | null
+          lesson_id: string | null
+          progress_percentage: number | null
+          quiz_id: string | null
+          simulation_id: string | null
+          student_id: string
+          time_spent_minutes: number | null
+          updated_at: string | null
+          xp_earned: number | null
+        }
+        Insert: {
+          chapter_id: string
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          is_completed?: boolean | null
+          last_accessed_at?: string | null
+          lesson_id?: string | null
+          progress_percentage?: number | null
+          quiz_id?: string | null
+          simulation_id?: string | null
+          student_id: string
+          time_spent_minutes?: number | null
+          updated_at?: string | null
+          xp_earned?: number | null
+        }
+        Update: {
+          chapter_id?: string
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          is_completed?: boolean | null
+          last_accessed_at?: string | null
+          lesson_id?: string | null
+          progress_percentage?: number | null
+          quiz_id?: string | null
+          simulation_id?: string | null
+          student_id?: string
+          time_spent_minutes?: number | null
+          updated_at?: string | null
+          xp_earned?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_progress_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_progress_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_progress_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_progress_simulation_id_fkey"
+            columns: ["simulation_id"]
+            isOneToOne: false
+            referencedRelation: "simulations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_progress_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_stats: {
+        Row: {
+          achievements_earned: number | null
+          created_at: string | null
+          current_level: number | null
+          current_streak: number | null
+          id: string
+          last_activity_at: string | null
+          lessons_completed: number | null
+          longest_streak: number | null
+          perfect_scores: number | null
+          quizzes_completed: number | null
+          rank_global: number | null
+          rank_in_class: number | null
+          simulations_completed: number | null
+          student_id: string
+          total_study_time_minutes: number | null
+          total_xp: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          achievements_earned?: number | null
+          created_at?: string | null
+          current_level?: number | null
+          current_streak?: number | null
+          id?: string
+          last_activity_at?: string | null
+          lessons_completed?: number | null
+          longest_streak?: number | null
+          perfect_scores?: number | null
+          quizzes_completed?: number | null
+          rank_global?: number | null
+          rank_in_class?: number | null
+          simulations_completed?: number | null
+          student_id: string
+          total_study_time_minutes?: number | null
+          total_xp?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          achievements_earned?: number | null
+          created_at?: string | null
+          current_level?: number | null
+          current_streak?: number | null
+          id?: string
+          last_activity_at?: string | null
+          lessons_completed?: number | null
+          longest_streak?: number | null
+          perfect_scores?: number | null
+          quizzes_completed?: number | null
+          rank_global?: number | null
+          rank_in_class?: number | null
+          simulations_completed?: number | null
+          student_id?: string
+          total_study_time_minutes?: number | null
+          total_xp?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_stats_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
