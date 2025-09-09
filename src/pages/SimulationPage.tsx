@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { PhysicsSimulation } from "@/components/PhysicsSimulation";
+import { ProjectileMotionSimulator } from "@/components/ProjectileMotionSimulator";
 
 const simulations = {
   1: {
@@ -43,10 +44,17 @@ export default function SimulationPage() {
       </div>
 
       <div className="container mx-auto px-6 py-8">
-        <PhysicsSimulation
-          title={simulation.title}
-          description={simulation.description}
-        />
+        {simulationId === "4" ? (
+          <ProjectileMotionSimulator
+            title={simulation.title}
+            description={simulation.description}
+          />
+        ) : (
+          <PhysicsSimulation
+            title={simulation.title}
+            description={simulation.description}
+          />
+        )}
       </div>
     </div>
   );
